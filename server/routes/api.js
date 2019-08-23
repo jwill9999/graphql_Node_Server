@@ -1,14 +1,20 @@
 const express = require('express');
 const app = express.Router();
+const Data = require('../schema').Data;
 
+console.log(']]]]]]]]]]] ', Data)
 
 app.get("/", (req, res, next) =>
 {
 
-    var d = new Date();
+    const d = new Date();
     return res.json({
-        "data": {
-            "time": d.toGMTString()
+        "payload": {
+            "status": {
+                "time": d.toGMTString(),
+                "statusCode": 200
+            },
+            "api": Data
         }
     })
 })

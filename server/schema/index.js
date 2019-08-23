@@ -1,5 +1,6 @@
 const graphql = require('graphql');
-var Books = require('../Data');
+let Books = require('../Data');
+
 
 const {
     GraphQLObjectType,
@@ -140,7 +141,12 @@ const Mutation = new GraphQLObjectType({
     }
 });
 
-module.exports = new GraphQLSchema({
+
+
+exports.GraphQLSchema = new GraphQLSchema({
     query: RootQuery,
-    mutation: Mutation
-});
+    mutation: Mutation,
+
+})
+
+exports.Data = Books;
