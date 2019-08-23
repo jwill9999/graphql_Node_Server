@@ -15,7 +15,6 @@ const {
 
 
 // create a model type e.g book / author
-
 const BookType = new GraphQLObjectType({
     name: 'Book',
     fields: () => ({
@@ -33,7 +32,7 @@ const BookType = new GraphQLObjectType({
 
 
 
-
+// create a root query
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -44,7 +43,8 @@ const RootQuery = new GraphQLObjectType({
                     type: new GraphQLNonNull(GraphQLID)
                 }
             },
-            resolve(parent, args) {
+            resolve(parent, args)
+            {
                 //return book by id
                 let objIndex = Books.findIndex(obj => obj.id == args.id);
                 return Books[objIndex];
@@ -52,7 +52,8 @@ const RootQuery = new GraphQLObjectType({
         },
         books: {
             type: new GraphQLList(BookType),
-            resolve(parent, args) {
+            resolve(parent, args)
+            {
                 // return all books
                 return Books;
             }
@@ -61,6 +62,7 @@ const RootQuery = new GraphQLObjectType({
     }
 });
 
+//create mutations
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
@@ -77,7 +79,8 @@ const Mutation = new GraphQLObjectType({
                     type: new GraphQLNonNull(GraphQLString)
                 }
             },
-            resolve(parent, args) {
+            resolve(parent, args)
+            {
 
                 let book = {
                     id: args.id,
@@ -102,7 +105,8 @@ const Mutation = new GraphQLObjectType({
                     type: GraphQLString
                 }
             },
-            resolve(parent, args) {
+            resolve(parent, args)
+            {
 
                 let objIndex = Books.findIndex(obj => obj.id == args.id);
 
@@ -126,7 +130,8 @@ const Mutation = new GraphQLObjectType({
                     type: new GraphQLNonNull(GraphQLID)
                 }
             },
-            resolve(parent, args) {
+            resolve(parent, args)
+            {
 
                 for (let i = 0; i < Books.length; i++) {
                     if (Books[i].id == args.id) {
@@ -142,11 +147,12 @@ const Mutation = new GraphQLObjectType({
 });
 
 
-
+// export graphql as GraphSchema
 exports.GraphQLSchema = new GraphQLSchema({
     query: RootQuery,
     mutation: Mutation,
 
 })
 
+// export updated Books data as Data
 exports.Data = Books;

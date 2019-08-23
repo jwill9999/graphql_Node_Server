@@ -7,6 +7,8 @@ const Home = require('./routes');
 const API = require('./routes/api');
 
 const port = 3000;
+
+// init app
 const app = express();
 
 //middleware
