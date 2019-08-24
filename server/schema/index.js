@@ -35,9 +35,11 @@ const BookType = new GraphQLObjectType({
 // create a root query
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
+    description: 'Get a single book or a list of Books',
     fields: {
         book: {
             type: BookType,
+            description: 'Get a single Book by ID and returns it',
             args: {
                 id: {
                     type: new GraphQLNonNull(GraphQLID)
@@ -52,6 +54,7 @@ const RootQuery = new GraphQLObjectType({
         },
         books: {
             type: new GraphQLList(BookType),
+            description: 'Gets a list of Books and returns them',
             resolve(parent, args)
             {
                 // return all books
@@ -65,8 +68,10 @@ const RootQuery = new GraphQLObjectType({
 //create mutations
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
+    description: 'Create / Update / and Delete a book',
     fields: {
         CreateBook: {
+            description: 'Creates a new Book and returns it',
             type: BookType,
             args: {
                 id: {
@@ -93,6 +98,7 @@ const Mutation = new GraphQLObjectType({
             }
         },
         UpdateBook: {
+            description: 'Update an existing Book and returns it',
             type: BookType,
             args: {
                 id: {
@@ -124,6 +130,7 @@ const Mutation = new GraphQLObjectType({
             }
         },
         DeleteBook: {
+            description: 'Delete an existing Book and returns it',
             type: BookType,
             args: {
                 id: {
@@ -156,3 +163,6 @@ exports.GraphQLSchema = new GraphQLSchema({
 
 // export updated Books data as Data
 exports.Data = Books;
+
+// export BookType
+exports.BookType = BookType;
