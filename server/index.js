@@ -12,7 +12,8 @@ const port = 3000;
 const app = express();
 
 //middleware
-app.use(logger('dev'));
+if (process.env.NODE_ENV !== "testing") { app.use(logger('dev')); }
+
 
 
 // route bind express with graphql
@@ -26,4 +27,11 @@ app.use("/", Home);
 app.use("/api", API);
 
 // listen
-app.listen(port, () => console.log(`listening on port ${port}`));
+let server = app.listen(port, () =>
+{
+    process.env.NODE_ENV === "testing"
+    ? null
+    : console.log(`listening on port ${port}. Environment === ${process.env.NODE_ENV}`)
+});
+
+module.exports = server;

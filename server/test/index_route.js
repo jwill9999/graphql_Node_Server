@@ -3,14 +3,22 @@ const express = require('express');
 const assert = require('assert');
 const expect = require('chai').expect;
 const Home = require('../routes');
-
-const app = express();
-
-app.use("/", Home);
+let app;
 
 // test
-describe('The Index route', function ()
+describe('Index route', function ()
 {
+
+    before(() =>
+    {
+        app = require('../index');
+    });
+
+    after(() =>
+    {
+        app.close();
+    });
+
     describe('Tests Mocha is working correctly', function ()
     {
         it('should return -1 when the value is not present', function ()
